@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Movers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Movers</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                     <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <h3>1. Request a Quote</h3>
+                        <p>Contact us to request a free quote. Provide us with the details of your move, including the date, location, and type of service you need.</p>
+                    </div>
+                    <div class="step">
+                        <h3>2. Schedule Your Move</h3>
+                        <p>Once you receive and approve the quote, we will schedule your move at a time that is convenient for you.</p>
+                    </div>
+                    <div class="step">
+                        <h3>3. We Pack and Move</h3>
+                        <p>Our professional team will arrive on the scheduled date to pack your belongings carefully and transport them to your new location.</p>
+                    </div>
+                    <div class="step">
+                        <h3>4. Safe Delivery</h3>
+                        <p>We ensure that all your items are safely delivered and unpacked at your new home or office.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-calculator">
+            <div class="container">
+                <h2>Calculate Your Quote</h2>
+                <form id="quoteForm">
+                    <label for="distance">Distance (in miles):</label>
+                    <input type="number" id="distance" name="distance" required>
+                    
+                    <label for="weight">Total Weight (in pounds):</label>
+                    <input type="number" id="weight" name="weight" required>
+                    
+                    <label for="serviceType">Service Type:</label>
+                    <select id="serviceType" name="serviceType" required>
+                        <option value="basic">Basic</option>
+                        <option value="premium">Premium</option>
+                        <option value="full">Full Service</option>
+                    </select>
+                    
+                    <button type="button" onclick="calculateQuote()">Calculate</button>
+                </form>
+                <div id="quoteResult" class="quote-result"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Movers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateQuote() {
+            const distance = document.getElementById('distance').value;
+            const weight = document.getElementById('weight').value;
+            const serviceType = document.getElementById('serviceType').value;
+
+            let baseRate = 0;
+
+            switch(serviceType) {
+                case 'basic':
+                    baseRate = 1.0;
+                    break;
+                case 'premium':
+                    baseRate = 1.5;
+                    break;
+                case 'full':
+                    baseRate = 2.0;
+                    break;
+            }
+
+            const quote = distance * weight * baseRate;
+
+            document.getElementById('quoteResult').innerHTML = `<p>Estimated Quote: $${quote.toFixed(2)}</p>`;
+        }
+    </script>
+</body>
+</html>
