@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Movers</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+            padding-top: 20px;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for header */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 10px;
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            background-image: url('photos/wallpaper3.jpeg'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            color: #fff;
+        }
+        .how-it-works {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for section */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .step {
+            width: 45%; /* Set width of each step */
+            margin-bottom: 20px;
+        }
+        .step h3 {
+            margin-top: 0;
+        }
+        .quote-calculator {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for section */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for form */
+            padding: 20px;
+            border-radius: 5px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        form input[type="number"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        form button:hover {
+            background-color: #45a049;
+        }
+        .quote-result {
+            margin-top: 10px;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for footer */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Movers</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <h3>1. Request a Quote</h3>
+                        <p>Contact us to request a free quote. Provide us with the details of your move, including the date, location, and type of service you need.</p>
+                    </div>
+                    <div class="step">
+                        <h3>2. Schedule Your Move</h3>
+                        <p>Once you receive and approve the quote, we will schedule your move at a time that is convenient for you.</p>
+                    </div>
+                    <div class="step">
+                        <h3>3. We Pack and Move</h3>
+                        <p>Our professional team will arrive on the scheduled date to pack your belongings carefully and transport them to your new location.</p>
+                    </div>
+                    <div class="step">
+                        <h3>4. Safe Delivery</h3>
+                        <p>We ensure that all your items are safely delivered and unpacked at your new home or office.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-calculator">
+            <div class="container">
+                <h2>Calculate Your Quote</h2>
+                <form id="quoteForm">
+                    <label for="distance">Distance (in miles):</label>
+                    <input type="number" id="distance" name="distance" required>
+                    
+                    <label for="weight">Total Weight (in pounds):</label>
+                    <input type="number" id="weight" name="weight" required>
+                    
+                    <label for="serviceType">Service Type:</label>
+                    <select id="serviceType" name="serviceType" required>
+                        <option value="basic">Basic</option>
+                        <option value="premium">Premium</option>
+                        <option value="full">Full Service</option>
+                    </select>
+                    
+                    <button type="button" onclick="calculateQuote()">Calculate</button>
+                </form>
+                <div id="quoteResult" class="quote-result"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Movers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateQuote() {
+            const distance = document.getElementById('distance').value;
+            const weight = document.getElementById('weight').value;
+            const serviceType = document.getElementById('serviceType').value;
+
+            let baseRate = 0;
+
+            switch(serviceType) {
+                case 'basic':
+                    baseRate = 1.0;
+                    break;
+                case 'premium':
+                    baseRate = 1.5;
+                    break;
+                case 'full':
+                    baseRate = 2.0;
+                    break;
+            }
+
+            const quote = distance * weight * baseRate;
+
+            document.getElementById('quoteResult').innerHTML = `<p>Estimated Quote: $${quote.toFixed(2)}</p>`;
+        }
+//scroll to the next page
+        function goToNextPage() {
+            window.location.href = "testimonials.html";
+        }
+
+        window.onscroll = function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                goToNextPage();
+            }
+        };
+    </script>
+</body>
+</html>
