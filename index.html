@@ -49,6 +49,54 @@
             height: 200px;
         }
     </style>
+    <script>
+    window.addEventListener('scroll', function() {
+        var scrollPosition = window.scrollY;
+        var windowHeight = window.innerHeight;
+        var documentHeight = document.body.clientHeight;
+
+        var currentPage = window.location.pathname.split('/').pop(); // Get current page filename
+        var nextPage = '';
+        var prevPage = '';
+
+        switch (currentPage) {
+            case 'index.html':
+                nextPage = 'services.html';
+                break;
+            case 'services.html':
+                nextPage = 'contact.html';
+                prevPage = 'index.html';
+                break;
+            case 'contact.html':
+                nextPage = 'about.html';
+                prevPage = 'services.html';
+                break;
+            case 'about.html':
+                nextPage = 'how-it-works.html';
+                prevPage = 'contact.html';
+                break;
+            case 'how-it-works.html':
+                nextPage = 'testimonials.html';
+                prevPage = 'about.html';
+                break;
+            case 'testimonials.html':
+                nextPage = 'index.html';
+                prevPage = 'how-it-works.html';
+                break;
+        }
+
+        if (scrollPosition === 0) {
+            if (prevPage !== '') {
+                window.location.href = prevPage;
+            }
+        } else if (scrollPosition + windowHeight >= documentHeight) {
+            if (nextPage !== '') {
+                window.location.href = nextPage;
+            }
+        }
+    });
+</script>
+
 </head>
 <body>
     <header>

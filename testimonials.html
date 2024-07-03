@@ -18,7 +18,8 @@
             color: #000; /* Black text color */
         }
         .container {
-            width: 80%;
+            width: 90%; /* Adjusted width for better responsiveness */
+            max-width: 1200px; /* Added max-width for larger screens */
             margin: 0 auto;
             overflow: hidden;
             padding-top: 20px;
@@ -33,16 +34,20 @@
             margin: 0;
             font-size: 24px;
         }
+        nav {
+            text-align: center; /* Center align nav items */
+        }
         nav ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
+            margin: 10px 0 0; /* Added margin to separate from header */
             display: flex;
+            flex-wrap: wrap; /* Enable wrapping on smaller screens */
             justify-content: center;
         }
         nav ul li {
-            margin: 0 10px;
-            display: inline;
+            margin: 5px 10px; /* Adjusted margins for spacing */
+            display: block; /* Display links as blocks for stacking */
         }
         nav ul li a {
             color: #fff;
@@ -96,7 +101,86 @@
             text-align: center;
             margin-top: 20px;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 0 10px; /* Adjusted padding for better spacing on small screens */
+            }
+
+            header h1 {
+                font-size: 20px; /* Smaller font size for header on small screens */
+            }
+
+            nav ul {
+                margin-top: 10px; /* Increased margin between header and nav links */
+            }
+
+            nav ul li {
+                display: block; /* Ensure links stack vertically */
+                margin: 5px auto; /* Center align links and provide margin */
+            }
+
+            nav ul li a {
+                font-size: 14px; /* Adjusted font size for smaller screens */
+            }
+        }
     </style>
+    <script>
+    window.addEventListener('scroll', function() {
+        var scrollPosition = window.scrollY;
+        var windowHeight = window.innerHeight;
+        var documentHeight = document.body.clientHeight;
+
+        var currentPage = window.location.pathname.split('/').pop(); // Get current page filename
+        var nextPage = '';
+        var prevPage = '';
+
+        switch (currentPage) {
+            case 'index.html':
+                nextPage = 'services.html';
+                break;
+            case 'services.html':
+                nextPage = 'contact.html';
+                prevPage = 'index.html';
+                break;
+            case 'contact.html':
+                nextPage = 'about.html';
+                prevPage = 'services.html';
+                break;
+            case 'about.html':
+                nextPage = 'how-it-works.html';
+                prevPage = 'contact.html';
+                break;
+            case 'how-it-works.html':
+                nextPage = 'testimonials.html';
+                prevPage = 'about.html';
+                break;
+            case 'testimonials.html':
+                nextPage = 'index.html';
+                prevPage = 'how-it-works.html';
+                break;
+        }
+
+        if (scrollPosition === 0) {
+            if (prevPage !== '') {
+                window.location.href = prevPage;
+            }
+        } else if (scrollPosition + windowHeight >= documentHeight) {
+            if (nextPage !== '') {
+                window.location.href = nextPage;
+            }
+        }
+    });
+</script>
+
 </head>
 <body>
     <header>

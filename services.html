@@ -14,7 +14,8 @@
             background-color: #f0f0f0; /* Fallback color */
         }
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             margin: 0 auto;
             overflow: hidden;
             padding-top: 20px;
@@ -29,16 +30,20 @@
             margin: 0;
             font-size: 24px;
         }
+        nav {
+            text-align: center; /* Center align nav items */
+        }
         nav ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
+            margin: 10px 0 0; /* Added margin to separate from header */
             display: flex;
+            flex-wrap: wrap; /* Enable wrapping on smaller screens */
             justify-content: center;
         }
         nav ul li {
-            margin: 0 10px;
-            display: inline;
+            margin: 5px 10px; /* Adjusted margins for spacing */
+            display: block; /* Display links as blocks for stacking */
         }
         nav ul li a {
             color: #fff;
@@ -53,41 +58,161 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
+            padding: 20px 0;
         }
         .main-content {
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for content */
             color: #fff;
             margin-top: 20px;
-            min-height: calc(100vh - 130px); /* Adjust based on header and footer height */
+            border-radius: 10px;
         }
         .services ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            text-align: center; /* Center align list items */
         }
         .services ul li {
             margin-bottom: 10px;
+            font-size: 18px;
+            word-wrap: break-word; /* Ensure words wrap properly */
         }
         .quotes {
-            flex: 1;
             padding: 20px;
             border-left: 1px solid #ccc;
-            margin-left: 20px;
-            height: 200px; /* Increased height */
+            margin-top: 20px;
+            height: auto; /* Adjusted height for better responsiveness */
             overflow: auto; /* Enable scrolling if content exceeds height */
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for quotes */
+            border-radius: 10px;
         }
         .quotes p {
             font-style: italic;
-            font-size: 30px;
+            font-size: 20px;
             margin: 0;
+            line-height: 1.5; /* Improved line height for better readability */
+            word-wrap: break-word; /* Ensure words wrap properly */
         }
         footer {
             background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for footer */
             color: #fff;
             padding: 10px 0;
             text-align: center;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 15px;
+            }
+
+            .services ul {
+                text-align: left; /* Adjusted to left align list items on smaller screens */
+            }
+
+            .services ul li {
+                font-size: 16px;
+            }
+
+            .quotes {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 0 10px; /* Adjusted padding for better spacing on small screens */
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .services ul li {
+                font-size: 14px;
+            }
+
+            .quotes {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            header h1 {
+                font-size: 20px; /* Smaller font size for header on small screens */
+            }
+
+            nav ul {
+                margin-top: 10px; /* Increased margin between header and nav links */
+            }
+
+            nav ul li {
+                display: block; /* Ensure links stack vertically */
+                margin: 5px auto; /* Center align links and provide margin */
+            }
+
+            nav ul li a {
+                font-size: 14px; /* Adjusted font size for smaller screens */
+            }
         }
     </style>
+    <script>
+    window.addEventListener('scroll', function() {
+        var scrollPosition = window.scrollY;
+        var windowHeight = window.innerHeight;
+        var documentHeight = document.body.clientHeight;
+
+        var currentPage = window.location.pathname.split('/').pop(); // Get current page filename
+        var nextPage = '';
+        var prevPage = '';
+
+        switch (currentPage) {
+            case 'index.html':
+                nextPage = 'services.html';
+                break;
+            case 'services.html':
+                nextPage = 'contact.html';
+                prevPage = 'index.html';
+                break;
+            case 'contact.html':
+                nextPage = 'about.html';
+                prevPage = 'services.html';
+                break;
+            case 'about.html':
+                nextPage = 'how-it-works.html';
+                prevPage = 'contact.html';
+                break;
+            case 'how-it-works.html':
+                nextPage = 'testimonials.html';
+                prevPage = 'about.html';
+                break;
+            case 'testimonials.html':
+                nextPage = 'index.html';
+                prevPage = 'how-it-works.html';
+                break;
+        }
+
+        if (scrollPosition === 0) {
+            if (prevPage !== '') {
+                window.location.href = prevPage;
+            }
+        } else if (scrollPosition + windowHeight >= documentHeight) {
+            if (nextPage !== '') {
+                window.location.href = nextPage;
+            }
+        }
+    });
+</script>
+
 </head>
 <body>
     <header>
@@ -131,25 +256,48 @@
         </div>
     </footer>
 
-    <!-- JavaScript to redirect on scroll -->
+    <!-- JavaScript to rotate quotes -->
     <script>
-        // Function to get the URL of the next page when scrolling to bottom
-        function getNextPageUrl() {
-            return 'contact.html';
+        // Array of real business-related quotes
+        const quotes = [
+            "The customer's perception is your reality. – Kate Zabriskie",
+            "Your most unhappy customers are your greatest source of learning. – Bill Gates",
+            "In the world of Internet Customer Service, it’s important to remember your competitor is only one mouse click away. – Doug Warner",
+            "Customer service is not a department, it’s everyone’s job. – Anonymous"
+        ];
+
+        // Function to rotate quotes every 5 seconds
+        function rotateQuotes() {
+            let idx = 0;
+            const quoteElement = document.getElementById("quote");
+
+            setInterval(() => {
+                quoteElement.textContent = quotes[idx];
+                idx = (idx + 1) % quotes.length;
+            }, 8000); // 5000 milliseconds = 5 seconds
         }
 
-        // Function to handle scroll events
-        window.addEventListener('scroll', function() {
-            // If scrolled to the bottom, redirect to contact.html
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-                window.location.href = getNextPageUrl();
-            }
-            
-            // If scrolled to the top, redirect to index.html
+        // Call rotateQuotes when the document is loaded
+        document.addEventListener("DOMContentLoaded", rotateQuotes);
+    </script>
+    <script>
+        // Automatically go to services.html when reaching the end of the current page
+        function goToNextPage() {
+            window.location.href = "index.html";
+        }
+
+        // Automatically go to previouspage.html when reaching the top of the current page
+        function goToPreviousPage() {
+            window.location.href = "contact.html"; // Change this to the desired URL
+        }
+
+        window.onscroll = function() {
             if (window.scrollY === 0) {
-                window.location.href = 'index.html';
+                goToPreviousPage();
+            } else if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                goToNextPage();
             }
-        });
+        };
     </script>
 </body>
 </html>
